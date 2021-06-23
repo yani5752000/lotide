@@ -25,6 +25,10 @@ const countLetters = function(str) {
 
 console.log(countLetters("lighthouse in the house"));
 
+console.log(countLetters(""));
+console.log(countLetters("  "));
+console.log(countLetters("l"));
+
 const countOnly = function(allItems, itemsToCount) {
   const results = {};
 
