@@ -29,3 +29,4 @@ console.log(countLetters(""));
 console.log(countLetters("  "));
 console.log(countLetters("l"));
 
+module.exports = countLetters;

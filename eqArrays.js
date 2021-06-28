@@ -14,3 +14,4 @@ const eqArrays = function(a1, a2) {
 
 module.exports = eqArrays;
 
+module.exports = eqArrays;

@@ -34,3 +34,5 @@ console.log(results1);
 
 assertArraysEqual(map(["tree", "hello", "four"], word => word[0]), ["t", "h", "f"]);
 assertArraysEqual(map(["tree", "hello", "four"], word => word[0]), ["t", "y", "f"]);
+
+module.exports = map;

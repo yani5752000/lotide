@@ -48,3 +48,5 @@ const users = {
 };
 findKey(users, o => o.age < 40);
 assertEqual(findKey(users, o => o.age < 40), "barney");
+
+module.exports = findKey;
