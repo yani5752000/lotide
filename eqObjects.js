@@ -6,23 +6,19 @@ const assertEqual = function(actual, expected) {
   }
 };
 
-const eqArrays = function(a1, a2) {
-  if (a1.length !== a2.length) {
+
+
+
+
+const eqObjects = function(object1, object2) {
+  if (!(object1 instanceof Object) && !(object2 instanceof Object)) {
+    return (object1 === object2);
+  } else if ((object1 instanceof Object) && !(object2 instanceof Object)) {
+    return false;
+  } else if (!(object1 instanceof Object) && (object2 instanceof Object)) {
     return false;
   }
 
-  for(let i = 0; i < a1.length; i++) {
-    if (a1[i] !== a2[i]){
-      return false;
-    }
-  }
-
-  return true;
-};
-
-// Returns true if both objects have identical keys with identical values.
-// Otherwise you get back a big fat false!
-const eqObjects = function(object1, object2) {
   if (Object.keys(object1).length !== Object.keys(object2).length) {
     return false;
   } 
@@ -32,20 +28,11 @@ const eqObjects = function(object1, object2) {
     }
   }  
   for(let k of Object.keys(object1)) {
-    if (!Array.isArray(object1[k]) && !Array.isArray(object2[k])) {
-      if (object1[k] !== object2[k]) {
-        return false;
-      }
+    if (!eqObjects(object1[k], object2[k])) {
+      return false;
     }
-    else if (Array.isArray(object1[k]) && Array.isArray(object2[k])) {
-      if (!eqArrays(object1[k], object2[k])){
-        return false;
-      }
-    }
-    else {
-        return false;
-      }
-  } 
+  }
+   
   return true;
 };
 
@@ -68,3 +55,10 @@ eqObjects(cd, cd2); // => false
 assertEqual(eqObjects(cd, cd2), false);
 
 assertEqual(eqObjects({ a: '1', b: '2' }, { b: 2, a: '1' }), false);
+assertEqual(eqObjects({ a: { z: 1 }, b: 2 }, { a: { z: 1 }, b: 2 }), true);
+assertEqual(eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: { z: 1 }, b: 2 }) , false);
+assertEqual(eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: 1, b: 2 }), false);
+assertEqual(eqObjects([2, 3],[2, 3]), true);
+assertEqual(eqObjects([2, [4, 3]],[2, [4, 3]]), true);
+assertEqual(eqObjects([2, [5, 3]],[2, [4, 3]]), false);
+assertEqual(eqObjects([2, 3],[2, [4, 3]]), false);
